@@ -57,7 +57,7 @@ public class MainToolBar extends JToolBar {
 		langLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		rightPanel.add(langLabel);
 
-		languageCombo = new JComboBox<>(new String[]{"Türkçe", "English"});
+		languageCombo = new JComboBox<>(new String[]{"Русский", "English", "Türkçe"});
 		// 90 px clipped "Türkçe" to "Tür..." once the dark theme's font was in
 		// place; the arrow button eats more of the track than the old look did.
 		languageCombo.setPreferredSize(new Dimension(120, 28));
@@ -67,14 +67,14 @@ public class MainToolBar extends JToolBar {
 		// do it before the listener exists so this does not count as a change.
 		// Without it the box always opened reading "Türkçe" while the rest of the
 		// window was in whatever language was actually saved.
-		languageCombo.setSelectedIndex(
-				LanguageManager.getCurrentLanguage() == LanguageManager.Language.TR ? 0 : 1);
+		languageCombo.setSelectedIndex(languageIndex(LanguageManager.getCurrentLanguage()));
 		languageCombo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand().equals("comboBoxChanged")) return;
 				int sel = languageCombo.getSelectedIndex();
-				LanguageManager.Language lang = (sel == 0) ? LanguageManager.Language.TR : LanguageManager.Language.EN;
+				LanguageManager.Language lang = sel == 0 ? LanguageManager.Language.RU
+						: sel == 1 ? LanguageManager.Language.EN : LanguageManager.Language.TR;
 				LanguageManager.setLanguage(lang);
 				ConfigSaver.getLoadedInstance().getAppPreferences().setLanguage(lang.getCode());
 				mainWindow.updateAllLanguageTexts();
@@ -110,7 +110,12 @@ public class MainToolBar extends JToolBar {
 		saveAllBtn.setToolTipText(LanguageManager.getString("tooltip.saveAll"));
 		closeBtn.setToolTipText(LanguageManager.getString("tooltip.close"));
 
-		int langSel = (LanguageManager.getCurrentLanguage() == LanguageManager.Language.TR) ? 0 : 1;
+		int langSel = languageIndex(LanguageManager.getCurrentLanguage());
 		languageCombo.setSelectedIndex(langSel);
+	}
+
+	private static int languageIndex(LanguageManager.Language language) {
+		return language == LanguageManager.Language.RU ? 0
+				: language == LanguageManager.Language.EN ? 1 : 2;
 	}
 }

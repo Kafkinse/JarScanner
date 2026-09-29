@@ -1,5 +1,7 @@
 # Jar Analyzer
 
+[Русская инструкция](README.ru.md) · Интерфейс доступен на русском, английском и турецком языках.
+
 **Minecraft hile tespit aracı — screenshare için.**
 Bilgisayardaki **her diskteki her JAR dosyasını** bulur, her sınıfın içini
 blacklist ile tarar ve analize direnen arşivleri — obfuscate edilmiş, şifrelenmiş

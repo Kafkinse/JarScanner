@@ -28,7 +28,10 @@ public enum Severity {
 
 	public String display() {
 		return com.jaranalyzer.LanguageManager.getCurrentLanguage()
-				== com.jaranalyzer.LanguageManager.Language.TR ? tr : en;
+				== com.jaranalyzer.LanguageManager.Language.TR ? tr
+				: com.jaranalyzer.LanguageManager.getCurrentLanguage()
+				== com.jaranalyzer.LanguageManager.Language.RU
+				? com.jaranalyzer.LanguageManager.getString("wjf.severity." + name().toLowerCase(java.util.Locale.ROOT)) : en;
 	}
 
 	public String en() {

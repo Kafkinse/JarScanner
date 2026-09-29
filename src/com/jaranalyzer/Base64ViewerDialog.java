@@ -254,11 +254,11 @@ public class Base64ViewerDialog extends JDialog {
 					previewTabs.setSelectedIndex(0);
 					System.out.println("[BASE64VIEWER] Image shown: " + img.getWidth() + "x" + img.getHeight());
 				} else {
-					imageLabel.setText("Resim yüklenemedi (ImageIO.read null döndü, tip=" + entry.getTypeName() + ")");
+					imageLabel.setText(LanguageManager.getString("base64.viewer.imageLoadFailed") + " " + entry.getTypeName());
 					System.out.println("[BASE64VIEWER] ImageIO.read returned null for type " + entry.getTypeName());
 				}
 			} catch (Exception e) {
-				imageLabel.setText("Resim hatası: " + e.getMessage());
+				imageLabel.setText(LanguageManager.getString("base64.viewer.imageError") + " " + e.getMessage());
 				System.out.println("[BASE64VIEWER] Image error: " + e.getMessage());
 			}
 		} else if (entry.isText) {

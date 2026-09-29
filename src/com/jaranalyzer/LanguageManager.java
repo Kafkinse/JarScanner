@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 public class LanguageManager {
 
 	public enum Language {
-		TR("tr"), EN("en");
+		TR("tr"), EN("en"), RU("ru");
 
 		private final String code;
 
@@ -23,27 +23,28 @@ public class LanguageManager {
 		}
 
 		public static Language fromCode(String code) {
-			if (code == null) return TR;
+			if (code == null) return RU;
 			for (Language lang : values()) {
 				if (lang.code.equalsIgnoreCase(code)) return lang;
 			}
-			return TR;
+			return RU;
 		}
 
 		public String getDisplayName() {
 			switch (this) {
 				case TR: return "Türkçe";
 				case EN: return "English";
+				case RU: return "Русский";
 				default: return "English";
 			}
 		}
 	}
 
-	private static Language currentLanguage = Language.TR;
+	private static Language currentLanguage = Language.RU;
 	private static ResourceBundle bundle;
 
 	static {
-		setLanguage(Language.TR);
+		setLanguage(Language.RU);
 	}
 
 	public static void setLanguage(Language language) {
@@ -64,49 +65,50 @@ public class LanguageManager {
 	 */
 	public static void applySwingStrings() {
 		boolean tr = currentLanguage == Language.TR;
-		javax.swing.UIManager.put("OptionPane.yesButtonText", tr ? "Evet" : "Yes");
-		javax.swing.UIManager.put("OptionPane.noButtonText", tr ? "Hayır" : "No");
-		javax.swing.UIManager.put("OptionPane.cancelButtonText", tr ? "İptal" : "Cancel");
-		javax.swing.UIManager.put("OptionPane.okButtonText", tr ? "Tamam" : "OK");
-		javax.swing.UIManager.put("OptionPane.titleText", tr ? "Mesaj" : "Message");
-		javax.swing.UIManager.put("OptionPane.messageDialogTitle", tr ? "Mesaj" : "Message");
-		javax.swing.UIManager.put("OptionPane.inputDialogTitle", tr ? "Giriş" : "Input");
+		boolean ru = currentLanguage == Language.RU;
+		javax.swing.UIManager.put("OptionPane.yesButtonText", tr ? "Evet" : ru ? "Да" : "Yes");
+		javax.swing.UIManager.put("OptionPane.noButtonText", tr ? "Hayır" : ru ? "Нет" : "No");
+		javax.swing.UIManager.put("OptionPane.cancelButtonText", tr ? "İptal" : ru ? "Отмена" : "Cancel");
+		javax.swing.UIManager.put("OptionPane.okButtonText", tr ? "Tamam" : ru ? "ОК" : "OK");
+		javax.swing.UIManager.put("OptionPane.titleText", tr ? "Mesaj" : ru ? "Сообщение" : "Message");
+		javax.swing.UIManager.put("OptionPane.messageDialogTitle", tr ? "Mesaj" : ru ? "Сообщение" : "Message");
+		javax.swing.UIManager.put("OptionPane.inputDialogTitle", tr ? "Giriş" : ru ? "Ввод" : "Input");
 
-		javax.swing.UIManager.put("FileChooser.openDialogTitleText", tr ? "Aç" : "Open");
-		javax.swing.UIManager.put("FileChooser.saveDialogTitleText", tr ? "Kaydet" : "Save");
-		javax.swing.UIManager.put("FileChooser.openButtonText", tr ? "Aç" : "Open");
-		javax.swing.UIManager.put("FileChooser.saveButtonText", tr ? "Kaydet" : "Save");
-		javax.swing.UIManager.put("FileChooser.cancelButtonText", tr ? "İptal" : "Cancel");
-		javax.swing.UIManager.put("FileChooser.updateButtonText", tr ? "Güncelle" : "Update");
-		javax.swing.UIManager.put("FileChooser.helpButtonText", tr ? "Yardım" : "Help");
-		javax.swing.UIManager.put("FileChooser.directoryOpenButtonText", tr ? "Aç" : "Open");
-		javax.swing.UIManager.put("FileChooser.lookInLabelText", tr ? "Konum:" : "Look in:");
-		javax.swing.UIManager.put("FileChooser.saveInLabelText", tr ? "Konum:" : "Save in:");
-		javax.swing.UIManager.put("FileChooser.fileNameLabelText", tr ? "Dosya adı:" : "File name:");
-		javax.swing.UIManager.put("FileChooser.filesOfTypeLabelText", tr ? "Dosya türü:" : "Files of type:");
+		javax.swing.UIManager.put("FileChooser.openDialogTitleText", tr ? "Aç" : ru ? "Открыть" : "Open");
+		javax.swing.UIManager.put("FileChooser.saveDialogTitleText", tr ? "Kaydet" : ru ? "Сохранить" : "Save");
+		javax.swing.UIManager.put("FileChooser.openButtonText", tr ? "Aç" : ru ? "Открыть" : "Open");
+		javax.swing.UIManager.put("FileChooser.saveButtonText", tr ? "Kaydet" : ru ? "Сохранить" : "Save");
+		javax.swing.UIManager.put("FileChooser.cancelButtonText", tr ? "İptal" : ru ? "Отмена" : "Cancel");
+		javax.swing.UIManager.put("FileChooser.updateButtonText", tr ? "Güncelle" : ru ? "Обновить" : "Update");
+		javax.swing.UIManager.put("FileChooser.helpButtonText", tr ? "Yardım" : ru ? "Справка" : "Help");
+		javax.swing.UIManager.put("FileChooser.directoryOpenButtonText", tr ? "Aç" : ru ? "Открыть" : "Open");
+		javax.swing.UIManager.put("FileChooser.lookInLabelText", tr ? "Konum:" : ru ? "Папка:" : "Look in:");
+		javax.swing.UIManager.put("FileChooser.saveInLabelText", tr ? "Konum:" : ru ? "Папка:" : "Save in:");
+		javax.swing.UIManager.put("FileChooser.fileNameLabelText", tr ? "Dosya adı:" : ru ? "Имя файла:" : "File name:");
+		javax.swing.UIManager.put("FileChooser.filesOfTypeLabelText", tr ? "Dosya türü:" : ru ? "Тип файла:" : "Files of type:");
 		javax.swing.UIManager.put("FileChooser.acceptAllFileFilterText",
-				tr ? "Tüm dosyalar" : "All files");
+				tr ? "Tüm dosyalar" : ru ? "Все файлы" : "All files");
 		javax.swing.UIManager.put("FileChooser.upFolderToolTipText",
-				tr ? "Bir üst klasör" : "Up one level");
+				tr ? "Bir üst klasör" : ru ? "На уровень выше" : "Up one level");
 		javax.swing.UIManager.put("FileChooser.homeFolderToolTipText",
-				tr ? "Masaüstü" : "Home");
+				tr ? "Masaüstü" : ru ? "Домой" : "Home");
 		javax.swing.UIManager.put("FileChooser.newFolderToolTipText",
-				tr ? "Yeni klasör" : "Create new folder");
+				tr ? "Yeni klasör" : ru ? "Создать папку" : "Create new folder");
 		javax.swing.UIManager.put("FileChooser.listViewButtonToolTipText",
-				tr ? "Liste" : "List");
+				tr ? "Liste" : ru ? "Список" : "List");
 		javax.swing.UIManager.put("FileChooser.detailsViewButtonToolTipText",
-				tr ? "Ayrıntılar" : "Details");
+				tr ? "Ayrıntılar" : ru ? "Подробности" : "Details");
 		javax.swing.UIManager.put("FileChooser.newFolderButtonText",
-				tr ? "Yeni klasör" : "New folder");
+				tr ? "Yeni klasör" : ru ? "Новая папка" : "New folder");
 		javax.swing.UIManager.put("FileChooser.renameFileButtonText",
-				tr ? "Yeniden adlandır" : "Rename");
-		javax.swing.UIManager.put("FileChooser.deleteFileButtonText", tr ? "Sil" : "Delete");
-		javax.swing.UIManager.put("FileChooser.filterLabelText", tr ? "Dosya türü:" : "Files of type:");
-		javax.swing.UIManager.put("FileChooser.fileNameHeaderText", tr ? "Ad" : "Name");
-		javax.swing.UIManager.put("FileChooser.fileSizeHeaderText", tr ? "Boyut" : "Size");
-		javax.swing.UIManager.put("FileChooser.fileTypeHeaderText", tr ? "Tür" : "Type");
-		javax.swing.UIManager.put("FileChooser.fileDateHeaderText", tr ? "Değiştirilme" : "Modified");
-		javax.swing.UIManager.put("FileChooser.fileAttrHeaderText", tr ? "Öznitelik" : "Attributes");
+				tr ? "Yeniden adlandır" : ru ? "Переименовать" : "Rename");
+		javax.swing.UIManager.put("FileChooser.deleteFileButtonText", tr ? "Sil" : ru ? "Удалить" : "Delete");
+		javax.swing.UIManager.put("FileChooser.filterLabelText", tr ? "Dosya türü:" : ru ? "Тип файла:" : "Files of type:");
+		javax.swing.UIManager.put("FileChooser.fileNameHeaderText", tr ? "Ad" : ru ? "Имя" : "Name");
+		javax.swing.UIManager.put("FileChooser.fileSizeHeaderText", tr ? "Boyut" : ru ? "Размер" : "Size");
+		javax.swing.UIManager.put("FileChooser.fileTypeHeaderText", tr ? "Tür" : ru ? "Тип" : "Type");
+		javax.swing.UIManager.put("FileChooser.fileDateHeaderText", tr ? "Değiştirilme" : ru ? "Изменён" : "Modified");
+		javax.swing.UIManager.put("FileChooser.fileAttrHeaderText", tr ? "Öznitelik" : ru ? "Атрибуты" : "Attributes");
 	}
 
 	private static void loadBundle() {
@@ -127,6 +129,14 @@ public class LanguageManager {
 		if (bundle != null && bundle.containsKey(key)) {
 			return bundle.getString(key);
 		}
+		if (currentLanguage != Language.EN) {
+			try (InputStream is = LanguageManager.class.getResourceAsStream("/resources/messages_en.properties")) {
+				if (is != null) {
+					ResourceBundle fallback = new PropertyResourceBundle(new InputStreamReader(is, StandardCharsets.UTF_8));
+					if (fallback.containsKey(key)) return fallback.getString(key);
+				}
+			} catch (Exception ignored) { }
+		}
 		return key;
 	}
 
@@ -135,10 +145,10 @@ public class LanguageManager {
 	}
 
 	public static void toggleLanguage() {
-		if (currentLanguage == Language.TR) {
-			setLanguage(Language.EN);
-		} else {
-			setLanguage(Language.TR);
+		switch (currentLanguage) {
+			case TR: setLanguage(Language.EN); break;
+			case EN: setLanguage(Language.RU); break;
+			case RU: setLanguage(Language.TR); break;
 		}
 	}
 }

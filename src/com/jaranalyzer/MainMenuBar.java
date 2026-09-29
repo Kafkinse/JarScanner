@@ -188,6 +188,16 @@ public class MainMenuBar extends JMenuBar {
 		uiLangGroup.add(enItem);
 		uiLanguageMenu.add(enItem);
 
+		JRadioButtonMenuItem ruItem = new JRadioButtonMenuItem("Русский");
+		ruItem.setSelected(LanguageManager.getCurrentLanguage() == LanguageManager.Language.RU);
+		ruItem.addActionListener(e -> {
+			LanguageManager.setLanguage(LanguageManager.Language.RU);
+			appPrefs.setLanguage("ru");
+			mainWindow.updateAllLanguageTexts();
+		});
+		uiLangGroup.add(ruItem);
+		uiLanguageMenu.add(ruItem);
+
 		settingsMenu.add(uiLanguageMenu);
 	}
 

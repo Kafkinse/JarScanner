@@ -20,7 +20,7 @@ using System.Windows.Forms;
 internal static class Launcher
 {
     private const string AppName = "Jar Analyzer";
-    private const string Version = "2.1.0";
+    private const string Version = "2.1.0-ru1";
 
     [STAThread]
     private static int Main()
@@ -29,13 +29,13 @@ internal static class Launcher
         {
             string root = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "JarAnalyzer", Version);
+                "JarAnalyzerRU", Version);
             string exe = Path.Combine(root, AppName, AppName + ".exe");
             string stamp = Path.Combine(root, ".ready");
 
             // A named mutex stops a second double-click from unpacking into the
             // same folder while the first one is still writing to it.
-            using (var gate = new Mutex(false, "Global\\JarAnalyzerUnpack-" + Version))
+            using (var gate = new Mutex(false, "Global\\JarAnalyzerRUUnpack-" + Version))
             {
                 gate.WaitOne();
                 try
@@ -62,7 +62,7 @@ internal static class Launcher
         catch (Exception ex)
         {
             MessageBox.Show(
-                "Jar Analyzer başlatılamadı:\n\n" + ex.Message,
+                "Не удалось запустить Jar Analyzer:\n\n" + ex.Message,
                 "Jar Analyzer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return 1;
         }
@@ -87,7 +87,7 @@ internal static class Launcher
                 using (Stream src = self.GetManifestResourceStream("payload.zip"))
                 using (Stream dst = File.Create(temp))
                 {
-                    if (src == null) throw new InvalidOperationException("payload.zip bulunamadı");
+                    if (src == null) throw new InvalidOperationException("Не найден файл payload.zip");
                     src.CopyTo(dst);
                 }
                 ZipFile.ExtractToDirectory(temp, root);
@@ -112,7 +112,7 @@ internal static class Launcher
         };
         form.Controls.Add(new Label
         {
-            Text = "Jar Analyzer hazırlanıyor…",
+            Text = "Подготовка Jar Analyzer…",
             ForeColor = Color.FromArgb(0xE8, 0x39, 0x4C),
             Font = new Font("Segoe UI", 11f, FontStyle.Bold),
             AutoSize = false,

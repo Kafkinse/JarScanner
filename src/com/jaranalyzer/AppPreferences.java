@@ -11,7 +11,7 @@ public class AppPreferences {
 	private boolean isPackageExplorerStyle = true;
 	private boolean isSingleClickOpenEnabled = true;
 	private boolean isExitByEscEnabled = false;
-	private String language = "tr";
+	private String language = "ru";
 	private java.util.List<String> userKeywords = new java.util.ArrayList<>();
 
 	// ---- scan screen layout ------------------------------------------------

@@ -186,6 +186,18 @@ public class BlacklistPanel extends JPanel {
 				new DefaultCellEditor(new JComboBox<>(Severity.values())));
 
 		table.getColumnModel().getColumn(C_SEVERITY).setCellRenderer(new SeverityRenderer());
+		table.getColumnModel().getColumn(C_CATEGORY).setCellRenderer(new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable t, Object value, boolean selected,
+					boolean focus, int row, int column) {
+				super.getTableCellRendererComponent(t, value, selected, focus, row, column);
+				String category = String.valueOf(value);
+				String key = "wjf.category." + category.toLowerCase(java.util.Locale.ROOT);
+				String translated = LanguageManager.getString(key);
+				setText(translated.equals(key) ? category : translated);
+				return this;
+			}
+		});
 		table.getColumnModel().getColumn(C_PATTERN).setCellRenderer(new PatternRenderer());
 
 		int[] w = { 44, 260, 90, 96, 120, 56, 56, 56, 380 };

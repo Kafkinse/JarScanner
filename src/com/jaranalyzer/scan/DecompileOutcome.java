@@ -38,7 +38,10 @@ public enum DecompileOutcome {
 
 	public String display() {
 		return com.jaranalyzer.LanguageManager.getCurrentLanguage()
-				== com.jaranalyzer.LanguageManager.Language.TR ? tr : en;
+				== com.jaranalyzer.LanguageManager.Language.TR ? tr
+				: com.jaranalyzer.LanguageManager.getCurrentLanguage()
+				== com.jaranalyzer.LanguageManager.Language.RU
+				? com.jaranalyzer.LanguageManager.getString("wjf.decompile." + name().toLowerCase(java.util.Locale.ROOT)) : en;
 	}
 
 	/** Language-independent label, for reports that must stay diffable. */

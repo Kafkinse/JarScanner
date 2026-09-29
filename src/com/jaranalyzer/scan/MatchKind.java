@@ -29,7 +29,15 @@ public enum MatchKind {
 
 	public String display() {
 		return com.jaranalyzer.LanguageManager.getCurrentLanguage()
-				== com.jaranalyzer.LanguageManager.Language.TR ? tr : en;
+				== com.jaranalyzer.LanguageManager.Language.TR ? tr
+				: com.jaranalyzer.LanguageManager.getCurrentLanguage()
+				== com.jaranalyzer.LanguageManager.Language.RU
+				? com.jaranalyzer.LanguageManager.getString("wjf.match." + name().toLowerCase(java.util.Locale.ROOT)) : en;
+	}
+
+	@Override
+	public String toString() {
+		return display();
 	}
 
 	public static MatchKind parse(String raw, MatchKind fallback) {

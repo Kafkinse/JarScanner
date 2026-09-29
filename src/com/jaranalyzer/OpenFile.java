@@ -563,23 +563,23 @@ public class OpenFile {
 					&& classBytes[2] == (byte)0xBA && classBytes[3] == (byte)0xBE;
 
 			if (isPE) {
-				sb.append("// Bu bir Windows DLL/EXE dosyasi (PE format) - Java bytecode degil\n");
-				sb.append("// Native makine kodu icerir, Java decompiler ile decompile edilemez\n");
-				sb.append("// Icindeki anlamlı string'ler asagida gosteriliyor:\n\n");
+				sb.append("// ").append(LanguageManager.getString("binary.pe")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.nativeCode")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.strings")).append("\n\n");
 			} else if (isMachO) {
-				sb.append("// Bu bir macOS native library (Mach-O format) - Java bytecode degil\n");
-				sb.append("// Native makine kodu icerir, Java decompiler ile decompile edilemez\n");
-				sb.append("// Icindeki anlamlı string'ler asagida gosteriliyor:\n\n");
+				sb.append("// ").append(LanguageManager.getString("binary.macho")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.nativeCode")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.strings")).append("\n\n");
 			} else if (isELF) {
-				sb.append("// Bu bir Linux native library (ELF format) - Java bytecode degil\n");
-				sb.append("// Native makine kodu icerir, Java decompiler ile decompile edilemez\n");
-				sb.append("// Icindeki anlamlı string'ler asagida gosteriliyor:\n\n");
+				sb.append("// ").append(LanguageManager.getString("binary.elf")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.nativeCode")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.strings")).append("\n\n");
 			} else if (!isJavaClass) {
-				sb.append("// Bu dosya Java class formatinda degil\n");
-				sb.append("// Icindeki anlamlı string'ler asagida gosteriliyor:\n\n");
+				sb.append("// ").append(LanguageManager.getString("binary.notClass")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.strings")).append("\n\n");
 			} else {
-				sb.append("// CFR ile decompile edilemedi (bozuk veya sifreli class)\n");
-				sb.append("// Icindeki string'ler asagida gosteriliyor:\n\n");
+				sb.append("// ").append(LanguageManager.getString("binary.cfrFailed")).append('\n');
+				sb.append("// ").append(LanguageManager.getString("binary.strings")).append("\n\n");
 			}
 
 			// Extract meaningful readable ASCII strings (min length 4)
@@ -606,11 +606,11 @@ public class OpenFile {
 			}
 
 			if (count == 0) {
-				sb.append("// Anlamlı string bulunamadi\n");
+				sb.append("// ").append(LanguageManager.getString("binary.noStrings")).append('\n');
 			}
 
 		} catch (Exception ex) {
-			sb.append("// Hata: ").append(ex.getMessage());
+			sb.append("// ").append(LanguageManager.getString("binary.error")).append(' ').append(ex.getMessage());
 		}
 		return sb.toString();
 	}
