@@ -232,20 +232,20 @@ Her arşiv için **SHA-256** hesaplanır ve rapora yazılır.
 
 ## Kurulum
 
-[**Releases**](../../releases) bölümünden `JarAnalyzer.exe` dosyasını indir ve
+[**Releases**](../../releases) bölümünden `JarAnalyzer-RU.exe` dosyasını indir ve
 çift tıkla. Kurulum penceresi yok, Java kurulu olmasına gerek yok — Java çalışma
 ortamı exe'nin içinde geliyor.
 
 Hızlı disk taraması (MFT) için **yönetici izni** ister. Vermezsen program yine
 çalışır, tarama daha yavaş olur.
 
-İlk çalıştırmada kendini `%LOCALAPPDATA%\JarAnalyzer\` altına açar; sonraki
+İlk çalıştırmada kendini `%LOCALAPPDATA%\JarAnalyzerRU\2.1.0-ru1\` altına açar; sonraki
 açılışlar anında olur.
 
-**Doğrulama —** `JarAnalyzer.exe` SHA-256:
+**Doğrulama —** `JarAnalyzer-RU.exe` SHA-256:
 
 ```
-3219f59561bde4ddbbd509a19a1e01dd68f92053319122e35ab662c4d15ec208
+fad6d02e7a4e0152cbfdd66dfd5c1117d8403679169dc1e7cc917d2113dfc5c9
 ```
 
 Yardım → Hakkında, çalışan kopyanın kendi hash'ini gösterir; bu ikisi
@@ -489,17 +489,17 @@ every archive and recorded.
 
 ## Install
 
-Download `JarAnalyzer.exe` from [**Releases**](../../releases) and double-click
+Download `JarAnalyzer-RU.exe` from [**Releases**](../../releases) and double-click
 it. No installer window, no Java required — the runtime ships inside the exe.
 
 It requests **administrator rights** for the fast MFT disk sweep. Decline and it
 still runs, just slower. On first launch it unpacks itself into
-`%LOCALAPPDATA%\JarAnalyzer\`; later launches are instant.
+`%LOCALAPPDATA%\JarAnalyzerRU\2.1.0-ru1\`; later launches are instant.
 
-**Verify —** `JarAnalyzer.exe` SHA-256:
+**Verify —** `JarAnalyzer-RU.exe` SHA-256:
 
 ```
-3219f59561bde4ddbbd509a19a1e01dd68f92053319122e35ab662c4d15ec208
+fad6d02e7a4e0152cbfdd66dfd5c1117d8403679169dc1e7cc917d2113dfc5c9
 ```
 
 Help → About shows the running copy's own hash; if the two match, what you
