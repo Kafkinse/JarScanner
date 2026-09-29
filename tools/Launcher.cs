@@ -20,7 +20,7 @@ using System.Windows.Forms;
 internal static class Launcher
 {
     private const string AppName = "Jar Analyzer";
-    private const string Version = "2.1.0-ru1";
+    private const string Version = "2.1.0-ru2";
 
     [STAThread]
     private static int Main()

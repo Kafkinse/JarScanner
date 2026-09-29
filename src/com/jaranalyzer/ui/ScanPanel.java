@@ -71,6 +71,11 @@ public class ScanPanel extends JPanel {
 	private final JLabel statusLabel = new JLabel();
 	private final JTextField searchField = new JTextField();
 	private final javax.swing.JComboBox<String> ageFilter = new javax.swing.JComboBox<>();
+	private JLabel searchLabel;
+	private javax.swing.JMenuItem ctxDecompile;
+	private javax.swing.JMenuItem ctxFolder;
+	private javax.swing.JMenuItem ctxCopyPath;
+	private javax.swing.JMenuItem ctxCopyHash;
 
 	/** Opens a JAR in the Decompile tab. Wired by MainWindow. */
 	public interface OpenInDecompiler {
@@ -166,15 +171,18 @@ public class ScanPanel extends JPanel {
 		final javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
 
 		javax.swing.JMenuItem openDecompiler = new javax.swing.JMenuItem(t("wjf.ctx.decompile"));
+		ctxDecompile = openDecompiler;
 		openDecompiler.addActionListener(e -> openSelectedInDecompiler());
 		menu.add(openDecompiler);
 		menu.addSeparator();
 
 		javax.swing.JMenuItem openFolder = new javax.swing.JMenuItem(t("wjf.ctx.folder"));
+		ctxFolder = openFolder;
 		openFolder.addActionListener(e -> revealSelected());
 		menu.add(openFolder);
 
 		javax.swing.JMenuItem copyPath = new javax.swing.JMenuItem(t("wjf.ctx.copyPath"));
+		ctxCopyPath = copyPath;
 		copyPath.addActionListener(e -> {
 			JarAnalysis a = table.selected();
 			if (a != null) toClipboard(a.getPath());
@@ -182,6 +190,7 @@ public class ScanPanel extends JPanel {
 		menu.add(copyPath);
 
 		javax.swing.JMenuItem copyHash = new javax.swing.JMenuItem(t("wjf.ctx.copyHash"));
+		ctxCopyHash = copyHash;
 		copyHash.addActionListener(e -> {
 			JarAnalysis a = table.selected();
 			if (a != null && !a.getSha256().isEmpty()) toClipboard(a.getSha256());
@@ -352,8 +361,8 @@ public class ScanPanel extends JPanel {
 		p.setBorder(BorderFactory.createEmptyBorder(0, 22, 10, 22));
 		p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 
-		JLabel searchIcon = UiKit.caption(t("wjf.filter.search"));
-		p.add(searchIcon);
+		searchLabel = UiKit.caption(t("wjf.filter.search"));
+		p.add(searchLabel);
 		p.add(Box.createHorizontalStrut(8));
 
 		searchField.setPreferredSize(new Dimension(230, 28));
@@ -960,8 +969,24 @@ public class ScanPanel extends JPanel {
 		header.setSubtitle(t("wjf.header.sub"));
 		scanAllBtn.setText(t("wjf.btn.scanAll"));
 		scanFolderBtn.setText(t("wjf.btn.scanFolder"));
+		scanMemoryBtn.setText(t("wjf.btn.scanMemory"));
+		scanMemoryBtn.setToolTipText(t("wjf.btn.scanMemory.tip"));
 		stopBtn.setText(t("wjf.btn.stop"));
 		exportBtn.setText(t("wjf.btn.export"));
+		searchLabel.setText(t("wjf.filter.search"));
+		int selectedAge = ageFilter.getSelectedIndex();
+		ageFilter.removeAllItems();
+		for (String key : new String[] {
+				"wjf.age.all", "wjf.age.1", "wjf.age.7", "wjf.age.30" }) {
+			ageFilter.addItem(t(key));
+		}
+		ageFilter.setSelectedIndex(Math.max(0, selectedAge));
+		cardsToggle.setText(t("wjf.view.cards"));
+		detailToggle.setText(t("wjf.view.detail"));
+		ctxDecompile.setText(t("wjf.ctx.decompile"));
+		ctxFolder.setText(t("wjf.ctx.folder"));
+		ctxCopyPath.setText(t("wjf.ctx.copyPath"));
+		ctxCopyHash.setText(t("wjf.ctx.copyHash"));
 		cardFound.setCaption(t("wjf.card.found"));
 		cardDone.setCaption(t("wjf.card.analyzed"));
 		cardCritical.setCaption(t("wjf.card.critical"));

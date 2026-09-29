@@ -66,6 +66,15 @@ public class BlacklistPanel extends JPanel {
 	private final TableRowSorter<Model> sorter;
 	private final JTextField search = new JTextField();
 	private final JLabel countLabel = UiKit.caption("");
+	private UiKit.Header header;
+	private javax.swing.JButton importButton;
+	private javax.swing.JButton exportButton;
+	private javax.swing.JButton addButton;
+	private javax.swing.JButton removeButton;
+	private javax.swing.JButton saveButton;
+	private javax.swing.JButton restoreButton;
+	private JLabel searchLabel;
+	private JLabel storageLabel;
 
 	private String filter = "";
 
@@ -122,29 +131,36 @@ public class BlacklistPanel extends JPanel {
 		top.setOpaque(false);
 		top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));
 
-		UiKit.Header h = new UiKit.Header(t("wjf.bl.sub"));
-		h.actions().add(UiKit.ghost(t("wjf.bl.import"), e -> doImport()));
-		h.actions().add(Box.createHorizontalStrut(8));
-		h.actions().add(UiKit.ghost(t("wjf.bl.export"), e -> doExport()));
-		top.add(h);
+		header = new UiKit.Header(t("wjf.bl.sub"));
+		importButton = UiKit.ghost(t("wjf.bl.import"), e -> doImport());
+		exportButton = UiKit.ghost(t("wjf.bl.export"), e -> doExport());
+		header.actions().add(importButton);
+		header.actions().add(Box.createHorizontalStrut(8));
+		header.actions().add(exportButton);
+		top.add(header);
 
 		JPanel bar = new JPanel();
 		bar.setOpaque(false);
 		bar.setBorder(BorderFactory.createEmptyBorder(14, 22, 12, 22));
 		bar.setLayout(new BoxLayout(bar, BoxLayout.X_AXIS));
 
-		bar.add(UiKit.primary(t("wjf.bl.add"), e -> addEntry()));
+		addButton = UiKit.primary(t("wjf.bl.add"), e -> addEntry());
+		removeButton = UiKit.ghost(t("wjf.bl.remove"), e -> removeSelected());
+		saveButton = UiKit.ghost(t("wjf.bl.save"), e -> save());
+		restoreButton = UiKit.ghost(t("wjf.bl.restore"), e -> restoreDefaults());
+		bar.add(addButton);
 		bar.add(Box.createHorizontalStrut(8));
-		bar.add(UiKit.ghost(t("wjf.bl.remove"), e -> removeSelected()));
+		bar.add(removeButton);
 		bar.add(Box.createHorizontalStrut(8));
-		bar.add(UiKit.ghost(t("wjf.bl.save"), e -> save()));
+		bar.add(saveButton);
 		bar.add(Box.createHorizontalStrut(8));
-		bar.add(UiKit.ghost(t("wjf.bl.restore"), e -> restoreDefaults()));
+		bar.add(restoreButton);
 		bar.add(Box.createHorizontalStrut(20));
 		bar.add(UiKit.vDivider(22));
 		bar.add(Box.createHorizontalStrut(16));
 
-		bar.add(UiKit.caption(t("wjf.filter.search")));
+		searchLabel = UiKit.caption(t("wjf.filter.search"));
+		bar.add(searchLabel);
 		bar.add(Box.createHorizontalStrut(8));
 		search.setPreferredSize(new Dimension(220, 28));
 		search.setMaximumSize(new Dimension(220, 28));
@@ -233,12 +249,12 @@ public class BlacklistPanel extends JPanel {
 	 * edits, and "my terms are gone" is answered by knowing which file to look at.
 	 */
 	private JComponent buildStorageLine() {
-		JLabel l = new JLabel(t("wjf.bl.storedAt") + "  "
+		storageLabel = new JLabel(t("wjf.bl.storedAt") + "  "
 				+ com.jaranalyzer.scan.BlacklistStore.blacklistFile());
-		l.setFont(WinzyTheme.ui(Font.PLAIN, 11f));
-		l.setForeground(WinzyPalette.TEXT_FAINT);
-		l.setBorder(BorderFactory.createEmptyBorder(8, 2, 0, 2));
-		return l;
+		storageLabel.setFont(WinzyTheme.ui(Font.PLAIN, 11f));
+		storageLabel.setForeground(WinzyPalette.TEXT_FAINT);
+		storageLabel.setBorder(BorderFactory.createEmptyBorder(8, 2, 0, 2));
+		return storageLabel;
 	}
 
 	private JComponent buildTamperBar() {
@@ -371,9 +387,21 @@ public class BlacklistPanel extends JPanel {
 	}
 
 	public void updateLanguage() {
+		header.setSubtitle(t("wjf.bl.sub"));
+		importButton.setText(t("wjf.bl.import"));
+		exportButton.setText(t("wjf.bl.export"));
+		addButton.setText(t("wjf.bl.add"));
+		removeButton.setText(t("wjf.bl.remove"));
+		saveButton.setText(t("wjf.bl.save"));
+		restoreButton.setText(t("wjf.bl.restore"));
+		searchLabel.setText(t("wjf.filter.search"));
+		storageLabel.setText(t("wjf.bl.storedAt") + "  " + BlacklistStore.blacklistFile());
+		updateTamperBar();
 		model.fireTableStructureChanged();
 		configureTable();
 		updateCount();
+		revalidate();
+		repaint();
 	}
 
 	// ---- renderers ---------------------------------------------------------
